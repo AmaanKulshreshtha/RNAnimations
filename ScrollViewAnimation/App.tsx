@@ -1,21 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
+import Page from './components/Page';
+
+const WORDS = ["What's", 'Up', 'Mobile', 'Devs?'];
 
 export default function App() {
+  const translateX = useSharedValue(0);
+  const scrollHandler = useAnimatedScrollHandler(event => {
+    translateX.value = event.contentOffset.x;
+  });
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Animated.ScrollView horizontal onScroll={scrollHandler} scrollEventThrottle={16} showsHorizontalScrollIndicator={false} pagingEnabled>
+      {WORDS.map((word, index) => {
+        return (
+          <View key={index.toString()}>
+            <Page index={index} title={word} translateX={translateX} />
+          </View>
+        );
+      })}
+    </Animated.ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
