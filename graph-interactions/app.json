@@ -1,0 +1,12 @@
+{
+  "name": "graphinteractions",
+  "displayName": "graph-interactions",
+  "expo": {
+    "name": "graph-interactions",
+    "slug": "graph-interactions",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
